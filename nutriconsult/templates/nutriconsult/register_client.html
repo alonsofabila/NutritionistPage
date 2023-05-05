@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %} Create Client {% endblock %}
+{% block content %}
+
+     <section>
+        <div class="container position-absolute top-50 start-50 translate-middle">
+            <div class="row">
+                <div class="col-12 col-sm-8 col-md-6 m-auto">
+                    <div class="card border-0 shadow">
+                        <div class="card-body text-center">
+
+                            <form method="post">
+
+                                {% csrf_token %}
+
+                                <h1>Register a Client</h1>
+                                <p>Please, fill the following form:</p>
+
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="first_name" id="id_first_name" maxlength="50" placeholder="first name" required>
+                                    <label for="id_first_name">First Name</label>
+                                </div>
+
+                                <br>
+
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="last_name" id="id_last_name" maxlength="50" placeholder="lastname" required>
+                                    <label for="id_last_name">Last Name</label>
+                                </div>
+
+                                <br>
+
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="birthday" id="id_birthday" maxlength="10" placeholder="birthday" required>
+                                    <label for="id_birthday">yyyy-mm-dd</label>
+                                </div>
+
+                                <br>
+
+                                <select class="form-select" aria-label="Default select example" name="sex" required>
+                                    <option selected>Sex?</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+
+                                <br>
+
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="height" maxlength="6" id="id_height" placeholder="Height" required>
+                                    <label for="id_height">Height</label>
+                                </div>
+
+                                <br>
+
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="weight" maxlength="6" id="id_weight" placeholder="Weight" required>
+                                    <label for="id_weight">Weight</label>
+                                </div>
+
+                                <br>
+
+                                <select class="form-select" aria-label="Default select example" name="exersice" required>
+                                    <option selected>Exersice?</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+
+                                <br>
+
+                                <select class="form-select" aria-label="Default select example" name="nutritionist" required>
+                                    <option selected>Nutritionist</option>
+                                    <option value="1">Alonso</option>
+                                    <option value="5">Fredy</option>
+                                </select>
+
+                                <br>
+
+                                <div class="col-12">
+                                    <button class="btn btn-primary" type="submit">Register</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

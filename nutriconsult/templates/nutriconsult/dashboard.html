@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+
+    <!--Nutritionist view-->
+    {% if request.user.is_superuser == 1 %}
+
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+
+                <!--Brand Logo-->
+                <a class="navbar-brand" href="{% url 'dashboard' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="" width="60" height="60" class="d-inline-block align-text-top">
+                </a>
+                <a class="navbar-brand row" href="{% url 'dashboard' %}">
+                    nutrition <span><i class="text-warning">&</i> me</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!--Navbar content-->
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+
+                        <!--Content options-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Consult</a>
+                        </li>
+
+                        <li class="nav-item dropdown dropstart">
+                            {% if request.user.is_authenticated %}
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ request.user.first_name|default:request.user.username}}
+                            </a>
+                            {% endif %}
+                            <!--opciones de usuario-->
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'client_register' %}">Register Client</a></li>
+                                <li><a class="dropdown-item" href="{% url 'assistant_register' %}">Register Assistant</a></li>
+                                <li><a class="dropdown-item" href="{% url 'nutritionist_register' %}">Register Nutritionist</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+        <!--page content-->
+        <p> Since you are a superuser then, you are a nutritionist </p>
+
+        {% for item in all_clients %}
+            <p>{{ item }} height {{ item.height }}</p>
+        {% endfor %}
+
+    <!--Assistant view-->
+    {% elif request.user.is_staff == 1 %}
+
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+
+                <!--Brand Logo-->
+                <a class="navbar-brand" href="{% url 'dashboard' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="" width="60" height="60" class="d-inline-block align-text-top">
+                </a>
+                <a class="navbar-brand row" href="{% url 'dashboard' %}">
+                    nutrition <span><i class="text-warning">&</i> me</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!--Navbar content-->
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+
+                        <!--Content options-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Consult</a>
+                        </li>
+
+                        <li class="nav-item dropdown dropstart">
+                            {% if request.user.is_authenticated %}
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ request.user.first_name|default:request.user.username}}
+                            </a>
+                            {% endif %}
+                            <!--opciones de usuario-->
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+        <!--page content-->
+        <p> Your are an assistant</p>
+
+        {% for item in all_clients %}
+            <p>{{ item }}</p>
+        {% endfor %}
+
+    <!--Client template-->
+    {% else %}
+
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+
+                <!--Brand Logo-->
+                <a class="navbar-brand" href="{% url 'dashboard' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="" width="60" height="60" class="d-inline-block align-text-top">
+                </a>
+                <a class="navbar-brand row" href="{% url 'dashboard' %}">
+                    nutrition <span><i class="text-warning">&</i> me</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!--Navbar content-->
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+
+                        <!--Content options-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+        <!--page content-->
+        <p> You are a client</p>
+
+
+    {% endif %}
+{% endblock %}

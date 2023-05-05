@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %} Register Assistant {% endblock %}
+{% block content %}
+
+     <section>
+        <div class="container position-absolute top-50 start-50 translate-middle">
+            <div class="row">
+                <div class="col-12 col-sm-8 col-md-6 m-auto">
+                    <div class="card border-0 shadow">
+                        <div class="card-body text-center">
+
+                            <form method="post">
+
+                                {% csrf_token %}
+
+                                <h1>Create an Assistant Account</h1>
+                                <p>Please, fill the following form:</p>
+
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="username" id="id_username" maxlength="150" placeholder="username" required>
+                                    <label for="id_username">Username</label>
+                                </div>
+
+                                <br>
+
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="first_name" id="id_first_name" maxlength="150" placeholder="firstname" required>
+                                    <label for="id_first_name">First Name</label>
+                                </div>
+
+                                <br>
+
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="last_name" id="id_last_name" maxlength="150" placeholder="lastname" required>
+                                    <label for="id_last_name">Last Name</label>
+                                </div>
+
+                                <br>
+
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" name="email" id="id_email" maxlength="254" placeholder="email" required>
+                                    <label for="id_email">Email</label>
+                                </div>
+
+                                <br>
+
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" name="password" id="id_password" placeholder="password" required>
+                                    <label for="id_password">Password</label>
+                                </div>
+
+                                <br>
+
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" name="password2" id="id_password2" placeholder="password2" required>
+                                    <label for="id_password2">Retype your password</label>
+                                </div>
+
+                                <br>
+
+                                <input type="hidden" name="is_staff" id="id_is_staff" value="1">
+
+                                <div class="col-12">
+                                    <button class="btn btn-primary" type="submit">Create Assistant</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

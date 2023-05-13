@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Consult Confirmation{% endblock %}
+{% block content %}
+
+    <section>
+        <div class="container position-absolute top-50 start-50 translate-middle">
+            <div class="row">
+                <div class="col-12 col-sm-8 col-md-6 m-auto">
+                    <div class="card border-0 shadow">
+                        <div class="card-body text-center">
+
+                            <h1>Consult Done</h1>
+                            <p>The consult has been successfully created</p>
+                            <a class="btn btn-primary" href="{% url 'dashboard' %}" role="button">Return to Dashboard</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

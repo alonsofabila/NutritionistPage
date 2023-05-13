@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %} Dashboard {% endblock %}
+{% block title %} NutriConsult {% endblock %}
 {% block content %}
 
     <!--Nutritionist view-->
@@ -28,7 +28,7 @@
 
                         <!--Content options-->
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Consult</a>
+                            <a class="nav-link" href="{% url 'make_consult' %}">Consult</a>
                         </li>
 
                         <li class="nav-item dropdown dropstart">
@@ -49,16 +49,62 @@
                         </li>
 
                     </ul>
+
+                    <form class="d-flex">
+                        <input class="form-control me-2 ms-2" name="patient" type="search" placeholder="Search Client" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+
                 </div>
 
             </div>
         </nav>
         <!--page content-->
-        <p> Since you are a superuser then, you are a nutritionist </p>
+        <br>
 
-        {% for item in all_clients %}
-            <p>{{ item }} height {{ item.height }}</p>
-        {% endfor %}
+        <!--table-->
+        <div class="container position-absolute top-50 start-50 translate-middle">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="col">Client</th>
+                        <th class="text-center" scope="col">Birthday</th>
+                        <th class="text-center" scope="col">Nutritionist:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for client in page_obj  %}
+                        <tr>
+                            <th class="text-center"><a href="{% url 'patient_detail' client.id %}" class="btn btn-light">{{ client.first_name }} {{ client.last_name }}</a></th>
+                            <td class="text-center">{{ client.birthday }}</td>
+                            <td class="text-center">
+                                {% for user in all_user %}
+                                    {% if client.nutritionist_id == user.id %}
+                                        {{ user.username }}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; Last</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">Next</a>
+                    {% endif %}
+
+                    <span class="current-page">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.paginator.num_pages }}">Next &raquo;</a>
+                    {% endif %}
+              </span>
+            </div>
+        </div>
 
     <!--Assistant view-->
     {% elif request.user.is_staff == 1 %}
@@ -81,12 +127,10 @@
 
                 <!--Navbar content-->
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+
                     <ul class="navbar-nav">
 
                         <!--Content options-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Consult</a>
-                        </li>
 
                         <li class="nav-item dropdown dropstart">
                             {% if request.user.is_authenticated %}
@@ -102,16 +146,39 @@
                         </li>
 
                     </ul>
+
+                    <form class="d-flex">
+                        <input class="form-control me-2 ms-2" name="patient" type="search" placeholder="Search Client" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+
                 </div>
 
             </div>
         </nav>
-        <!--page content-->
-        <p> Your are an assistant</p>
 
-        {% for item in all_clients %}
-            <p>{{ item }}</p>
-        {% endfor %}
+        <div class="container position-absolute top-50 start-50 translate-middle">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="col">Client</th>
+                        <th class="text-center" scope="col">Birthday</th>
+                        <th class="text-center" scope="col">Gender</th>
+                        <th class="text-center" scope="col">Exercise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in all_clients  %}
+                        <tr>
+                            <th class="text-center">{{ item.first_name }} {{ item.last_name }}</th>
+                            <td class="text-center">{{ item.birthday }}</td>
+                            <td class="text-center">{{ item.sex }}</td>
+                            <td class="text-center">{{ item.exersice }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
     <!--Client template-->
     {% else %}
@@ -142,13 +209,36 @@
                         </li>
 
                     </ul>
+
                 </div>
 
             </div>
         </nav>
+
         <!--page content-->
-        <p> You are a client</p>
+        <section>
+            <div class="container position-absolute top-50 start-50 translate-middle">
+                <div class="row">
+                    <div class="col-12 col-sm-8 col-md-6 m-auto">
+                        <div class="card border-0 shadow">
+                            <div class="card-body text-center">
+
+                                <!--Still in develop-->
+                                <h1>Follow your progress</h1>
+
+                                <form class="d-flex" method="get">
+                                    <input class="form-control me-2 ms-2" name="patient" type="search" placeholder="Your Id" aria-label="Search">
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
     {% endif %}
+
 {% endblock %}

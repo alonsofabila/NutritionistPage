@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Client
+from .models import Client, Consult
 
 
 # Create forms here
@@ -37,8 +37,26 @@ class NutritionistRegistrationForm(forms.ModelForm):
 
 
 class ClientRegistrationForm(forms.ModelForm):
+    nutritionist = forms.ModelChoiceField(queryset=User.objects.filter(is_superuser=True))
 
     class Meta:
         model = Client
 
         fields = ['first_name', 'last_name', 'birthday', 'sex', 'height', 'weight', 'exersice', 'nutritionist']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['nutritionist'].queryset = User.objects.filter(is_superuser=True)
+
+
+class MakeConsult(forms.ModelForm):
+    nutritionist = forms.ModelChoiceField(queryset=User.objects.filter(is_superuser=True))
+
+    class Meta:
+        model = Consult
+
+        fields = ['new_weight', 'observation', 'client', 'nutritionist']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['nutritionist'].queryset = User.objects.filter(is_superuser=True)

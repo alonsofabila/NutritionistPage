@@ -17,4 +17,7 @@ urlpatterns = [
     path('register-assistant/', views.assistant_register, name='assistant_register'),
     path('register-nutritionist/', views.nutritionist_register, name='nutritionist_register'),
     path('register-client/', views.client_register, name='client_register'),
+    path('make-consult/', views.make_consult, name='make_consult'),
+    path('patient-detail/<int:client_id>/', views.patient_details, name='patient_detail'),
 ]
+

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 {% block title %} Create Client {% endblock %}
 {% block content %}
 
@@ -67,11 +68,8 @@
 
                                 <br>
 
-                                <select class="form-select" aria-label="Default select example" name="nutritionist" required>
-                                    <option selected>Nutritionist</option>
-                                    <option value="1">Alonso</option>
-                                    <option value="5">Fredy</option>
-                                </select>
+
+                                {{ client_form.nutritionist|add_class:"form-select" }}
 
                                 <br>
 

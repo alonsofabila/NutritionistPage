@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %} Client Details {% endblock %}
+{% block content %}
+
+    <div class="container position-absolute top-50 start-50 translate-middle">
+
+            <h1>Client Details</h1>
+
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="col">Id</th>
+                        <th class="text-center" scope="col">Client</th>
+                        <th class="text-center" scope="col">Birthday</th>
+                        <th class="text-center" scope="col">Gender</th>
+                        <th class="text-center" scope="col">Height:</th>
+                        <th class="text-center" scope="col">Weight:</th>
+                        <th class="text-center" scope="col">Exercise:</th>
+                        <th class="text-center" scope="col">First Bmi</th>
+                        <th class="text-center" scope="col">Current Bmi</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <th class="text-center">{{ client.id }}</th>
+                            <th class="text-center">{{ client.first_name }} {{ client.last_name }}</th>
+                            <td class="text-center">{{ client.birthday }}</td>
+                            <td class="text-center">{{ client.sex }}</td>
+                            <td class="text-center">{{ client.height }} mts</td>
+                            <td class="text-center">{{ client.weight }} kg</td>
+                            <td class="text-center">{{ client.exersice }}</td>
+                            <td class="text-center">{{ bmi }}</td>
+                            <td class="text-center">{{ current_bmi }}</td>
+                        </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="col">Consult date</th>
+                        <th class="text-center" scope="col">New Weight</th>
+                        <th class="text-center" scope="col">Observations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consult in all_consult  %}
+                        <tr>
+                            <td class="text-center">{{ consult.consult_date }}</td>
+                            <td class="text-center">{{ consult.new_weight }}</td>
+                            <td class="text-center">{{ consult.observation }}</td>
+                        </tr>
+                    {% empty %}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        <a class="btn btn-primary" href="{% url 'dashboard' %}" role="button">Return to Dashboard</a>
+    </div>
+
+{% endblock %}

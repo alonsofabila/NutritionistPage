@@ -5,7 +5,6 @@ from .models import Client, Consult
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.utils import timezone
 
 
 # Create your views here.
@@ -14,7 +13,7 @@ def dashboard(request):
         patient = request.GET['patient']
         all_clients = Client.objects.filter(Q(first_name__icontains=patient) | Q(last_name__icontains=patient))
     else:
-        all_clients = Client.objects.all().order_by('last_name')
+        all_clients = Client.objects.filter(is_active=1).order_by('last_name')
     all_user = User.objects.all()
     paginator = Paginator(all_clients, 5)
     page_number = request.GET.get('page')
@@ -78,15 +77,14 @@ def make_consult(request):
 
 
 @login_required
-def patient_details(request, client_id):
+def patient_details(request, client_id=None):
     client = get_object_or_404(Client, pk=client_id)
     all_client = Client.objects.all()
     all_consult = Consult.objects.filter(client=client).order_by('consult_date')
 
     bmi = round(float(client.weight)/(float(client.height)**2), 2)
 
-    current_date = timezone.localdate()
-    previous_consult = all_consult.filter(consult_date=current_date).last()
+    previous_consult = all_consult.last()
     if previous_consult:
         current_bmi = round(float(previous_consult.new_weight)/(float(client.height)**2), 2)
     else:
@@ -95,3 +93,19 @@ def patient_details(request, client_id):
     return render(request, 'nutriconsult/client_detail.html', {'client': client, 'all_client': all_client,
                                                                'all_consult': all_consult, 'bmi': bmi,
                                                                'current_bmi': current_bmi})
+
+
+def patient_progress(request):
+    client_id = request.GET.get('client_id')
+    client = get_object_or_404(Client, id=client_id)
+    consult = Consult.objects.filter(client=client).order_by('consult_date')
+
+    bmi = round(float(client.weight)/(float(client.height)**2), 2)
+    previous_consult = consult.last()
+    if previous_consult:
+        current_bmi = round(float(previous_consult.new_weight) / (float(client.height) ** 2), 2)
+    else:
+        current_bmi = None
+
+    return render(request, 'nutriconsult/patient_progress.html', {'client': client, 'consult': consult,
+                                                                  'bmi': bmi, "current_bmi": current_bmi})

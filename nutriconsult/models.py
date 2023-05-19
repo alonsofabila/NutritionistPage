@@ -16,6 +16,7 @@ class Client(models.Model):
                         ("No", "no"), ]
     exersice = models.CharField(max_length=10, blank=False, null=False, choices=exersice_choices)
     nutritionist = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    is_active = models.BooleanField()
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name

@@ -207,7 +207,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}">Login</a>
                         </li>
-
                     </ul>
 
                 </div>
@@ -225,9 +224,8 @@
 
                                 <!--Still in develop-->
                                 <h1>Follow your progress</h1>
-
-                                <form class="d-flex" method="get">
-                                    <input class="form-control me-2 ms-2" name="patient" type="search" placeholder="Your Id" aria-label="Search">
+                                <form class="d-flex" method="get" action="{% url 'patient_progress' %}">
+                                    <input class="form-control me-2" name="client_id" type="search" placeholder="Enter your ID" aria-label="Search">
                                     <button class="btn btn-outline-success" type="submit">Search</button>
                                 </form>
 

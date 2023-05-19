@@ -42,7 +42,8 @@ class ClientRegistrationForm(forms.ModelForm):
     class Meta:
         model = Client
 
-        fields = ['first_name', 'last_name', 'birthday', 'sex', 'height', 'weight', 'exersice', 'nutritionist']
+        fields = ['first_name', 'last_name', 'birthday', 'sex', 'height', 'weight', 'exersice', 'nutritionist',
+                  'is_active']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

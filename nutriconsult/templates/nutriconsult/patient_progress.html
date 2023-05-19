@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %} Patient Progress {% endblock %}
+{% block content %}
+
+    <section>
+            <div class="container position-absolute top-50 start-50 translate-middle">
+                <div class="row">
+                    <div class="col-12 col-sm-8 col-md-6 m-auto">
+                        <div class="card border-0 shadow">
+                            <div class="card-body text-center">
+
+                                <!--Still in develop-->
+                                <h1>Progress of: {{ client.first_name }} {{ client.last_name }}</h1>
+                                <p><strong>Birthday: </strong>{{ client.birthday }}</p>
+                                <p><strong>Gender: </strong>{{ client.sex }}</p>
+                                <p><strong>Height: </strong>{{ client.height }} mts</p>
+                                <p><strong>Initial Weight: </strong>{{ client.weight }} kg</p>
+                                <p><strong>Exercise: </strong>{{ client.exersice }}</p>
+                                <p><strong>Initial BMI: </strong>{{ bmi }}</p>
+                                <p><strong>Current BMI: </strong>{{ current_bmi }}</p>
+
+                                <table class="table table-dark table-striped rounded-1">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" scope="col">Consult date</th>
+                                            <th class="text-center" scope="col">New Weight</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for consult in consult  %}
+                                            <tr>
+                                                <td class="text-center">{{ consult.consult_date }}</td>
+                                                <td class="text-center">{{ consult.new_weight }} kg</td>
+                                            </tr>
+                                        {% empty %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                <a class="btn btn-primary" href="{% url 'dashboard' %}" role="button">Return to Dashboard</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+
+{% endblock %}
